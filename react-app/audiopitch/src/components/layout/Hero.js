@@ -17,10 +17,10 @@ export default function Hero() {
           asdfasdf asd fas dfas dfasdf
         </p>
         <div className="flex gap-4 text-sm">
-          <button className="bg-primary flex items-center gap-5 text-textcolor px-4 py-2 rounded-full hover:bg-primarylighter hover:text-textcolorl transition-all">
+          <button className="bg-primary flex justify-center items-center uppercase gap-3 w-auto text-textcolor px-4 py-2 rounded-full hover:bg-primarylighter hover:text-textcolorl transition-all">
             Get Started <Right />
           </button>
-          <button className="text-gray-400 px-4 py-2 hover:text-gray-600">Learn More</button>
+          <button className=" border-none text-gray-400 w-auto px-4 py-2 hover:text-gray-600">Learn More</button>
         </div>
       </div>
 
