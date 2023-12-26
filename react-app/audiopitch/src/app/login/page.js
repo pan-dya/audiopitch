@@ -1,17 +1,19 @@
 "use client";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function RegisterPage() {
+export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  function handleFormSubmit(ev) {
+  const [loginInProgress, setLoginInProgress] = useState(false);
+  async function handleFormSubmit(ev) {
     ev.preventDefault();
-    fetch("/api/register", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      headers: { "Content-Type": "application/json" },
-    });
+    setLoginInProgress(true);
+
+    await signIn("credentials", { email, password });
+
+    setLoginInProgress(false);
   }
 
   return (
@@ -22,17 +24,23 @@ export default function RegisterPage() {
       <form className="block max-w-xs mx-auto" onSubmit={handleFormSubmit}>
         <input
           type="email"
+          name="email"
           placeholder="email"
           value={email}
+          disabled={loginInProgress}
           onChange={(ev) => setEmail(ev.target.value)}
         />
         <input
           type="password"
+          name="password"
           placeholder="password"
           value={password}
+          disabled={loginInProgress}
           onChange={(ev) => setPassword(ev.target.value)}
         />
-        <button type="submit">Login</button>
+        <button disabled={loginInProgress} type="submit">
+          Login
+        </button>
         <div className="my-4 text-center text-gray-500 flex items-center">
           <hr className="flex-grow border-t border-gray-300" />
           <span className="mx-3">OR</span>

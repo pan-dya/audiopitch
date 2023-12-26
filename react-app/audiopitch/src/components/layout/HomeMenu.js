@@ -2,6 +2,7 @@ import SectionHeaders from "./SectionHeaders";
 
 export default function HomeMenu() {
   return (
+    // TODO Update texts and images
     <section className="container mx-auto px-32 py-24 max-w-max bg-shade">
       <div className="text-center mb-4 pb-10">
         <SectionHeaders subHeader={"Lorem"} mainHeader={"Ipsum"} />
