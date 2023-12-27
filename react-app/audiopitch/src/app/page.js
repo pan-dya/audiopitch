@@ -14,8 +14,7 @@ export default function Home() {
           TODO fix responsiveness of web for phone. (Samsung Galaxy S20 Ultra and lower on chrome inspect)
       */}
       {/* 
-          TODO create profile page
-          TODO finish authentication process (login with google and finishing)
+          TODO finish profile page (profile image, other stuff)
           TODO create admin functionality
           TODO curator and artists processes (how the message will be sent, how will the curatore receive payment, etc)
           TODO define what other pages are needed (terms of use, curator search page, coin transaction(kalo jadi pake) -> harus bikin cart, API buat payment, etc)

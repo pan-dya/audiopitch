@@ -25,12 +25,13 @@ export default function Hero() {
       </div>
 
       <div className="relative">
-        {/* TODO change next.svg to another image */}
+        {/* TODO change image */}
         <Image
-          src={"next.svg"}
+          src={"/imagehero.png"}
           layout={"fill"}
-          objectFit={"contain"}
+          objectFit="contain"
           alt={"image"}
+          priority={true}
         />
       </div>
     </section>

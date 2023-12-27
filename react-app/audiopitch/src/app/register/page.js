@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ export default function LoginPage() {
     ev.preventDefault();
     setCreatingUser(true);
     setError(false);
-    setUserCreated(false)
+    setUserCreated(false);
     const response = await fetch("/api/register", {
       method: "POST",
       body: JSON.stringify({ email, password }),
@@ -22,9 +23,8 @@ export default function LoginPage() {
     });
     if (!response.ok) {
       setError(true);
-    }
-    else {
-      setUserCreated(true)
+    } else {
+      setUserCreated(true);
     }
     setCreatingUser(false);
   }
@@ -72,7 +72,10 @@ export default function LoginPage() {
           <span className="mx-3">OR</span>
           <hr className="flex-grow border-t border-gray-300" />
         </div>
-        <button className="flex gap-4 justify-center bg-white">
+        <button
+          onClick={() => signIn("google", { callbackUrl: "/" })}
+          className="flex gap-4 justify-center bg-white"
+        >
           <Image src={"/google.png"} alt={""} width={24} height={24}></Image>
           Login with Google
         </button>

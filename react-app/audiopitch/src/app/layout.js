@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={roboto.className}>
         <main className=" mx-auto">
-          <AppProvider><Header />{children}</AppProvider>
+          <AppProvider>{children}</AppProvider>
         </main>
       </body>
     </html>

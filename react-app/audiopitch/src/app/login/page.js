@@ -11,7 +11,7 @@ export default function LoginPage() {
     ev.preventDefault();
     setLoginInProgress(true);
 
-    await signIn("credentials", { email, password });
+    await signIn("credentials", { email, password, callbackUrl:'/'});
 
     setLoginInProgress(false);
   }
@@ -46,7 +46,11 @@ export default function LoginPage() {
           <span className="mx-3">OR</span>
           <hr className="flex-grow border-t border-gray-300" />
         </div>
-        <button className="flex gap-4 justify-center bg-white">
+        <button
+          type="button"
+          onClick={() => signIn("google", {callbackUrl:'/'})}
+          className="flex gap-4 justify-center bg-white"
+        >
           <Image src={"/google.png"} alt={""} width={24} height={24}></Image>
           Login with Google
         </button>
