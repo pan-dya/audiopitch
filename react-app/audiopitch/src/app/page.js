@@ -14,10 +14,11 @@ export default function Home() {
           TODO fix responsiveness of web for phone. (Samsung Galaxy S20 Ultra and lower on chrome inspect)
       */}
       {/* 
-          TODO finish profile page (profile image, other stuff)
+          TODO fix session for non google log in (Problem with the MongoDBAdapter)
+          TODO finish profile page (profile image(need AWS), other stuff(spotify link?, different page for curator?))
           TODO create admin functionality
           TODO curator and artists processes (how the message will be sent, how will the curatore receive payment, etc)
-          TODO define what other pages are needed (terms of use, curator search page, coin transaction(kalo jadi pake) -> harus bikin cart, API buat payment, etc)
+          TODO define what other pages are needed (terms of use, curator search page, coin transaction(kalo jadi pake) -> harus bikin cart, stripe, etc)
           TODO payment process
       */}
       <Header />

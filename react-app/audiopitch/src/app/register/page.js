@@ -21,10 +21,10 @@ export default function LoginPage() {
       body: JSON.stringify({ email, password }),
       headers: { "Content-Type": "application/json" },
     });
-    if (!response.ok) {
-      setError(true);
-    } else {
+    if (response.ok) {
       setUserCreated(true);
+    } else {
+      setError(true);
     }
     setCreatingUser(false);
   }

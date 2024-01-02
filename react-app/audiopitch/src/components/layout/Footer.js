@@ -18,7 +18,7 @@ export default function Footer() {
             <li className="mr-8 mt-2">
               <a
                 className="text-textcolor hover:underline"
-                href="#"
+                href=""
               >
                 Terms of Use
               </a>
@@ -26,7 +26,7 @@ export default function Footer() {
             <li className="mr-8 mt-2">
               <a
                 className="text-textcolor hover:underline"
-                href="#"
+                href=""
               >
                 Privacy
               </a>

@@ -1,11 +1,11 @@
-import { User } from "@/app/models/User";
-import * as mongoose from "mongoose";
+import clientPromise from "@/libs/mongoConnect";
 import bcrypt from "bcrypt"
+import * as mongoose from "mongoose";
+import { User } from "@/app/models/User";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google"
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import clientPromise from "@/libs/mongoConnect";
 
 export const authOptions = {
   secret: process.env.SECRET,
@@ -31,12 +31,13 @@ export const authOptions = {
         const passwordOk = user && bcrypt.compareSync(password, user.password)
 
         if (passwordOk) {
+          // console.log(user);
           return user;
         }
         // Return null if user data could not be retrieved
         return null;
       },
-    }),
+    })
   ],
 }
 
