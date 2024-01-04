@@ -1,4 +1,6 @@
 "use client";
+import UserTabs from "@/components/layout/UserTabs"
+import Redirect from "@/components/icons/Redirect";
 import Header from "@/components/layout/Header";
 import InfoBox from "@/components/layout/InfoBox";
 import SuccessBox from "@/components/layout/SuccessBox";
@@ -14,11 +16,19 @@ export default function ProfilePage() {
   const { status } = session;
   const [userName, setUserName] = useState("");
   const [image, setImage] = useState("");
+  const [media, setMedia] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     if (status === "authenticated") {
       setUserName(session.data.user.name);
       setImage(session.data.user.image);
+      fetch("/api/profile").then((response) => {
+        response.json().then((data) => {
+          setMedia(data.media);
+          setIsAdmin(data.admin);
+        });
+      });
     }
   }, [session, status]);
 
@@ -29,7 +39,7 @@ export default function ProfilePage() {
       const response = await fetch("/api/profile", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: userName, image }),
+        body: JSON.stringify({ name: userName, image, media }),
       });
       if (response.ok) resolve();
       else reject;
@@ -67,6 +77,12 @@ export default function ProfilePage() {
     }
   }
 
+  const handleMediaClick = () => {
+    if (media) {
+      window.open(media, '_blank')
+    }
+  }
+
   if (status === "loading") {
     return "Loading...";
   }
@@ -79,11 +95,9 @@ export default function ProfilePage() {
     <>
       <Header />
       <section className="mt-8">
-        <h1 className="text-center text-primary text-4xl font-bold mt-8 mb-5">
-          Profile
-        </h1>
-        <div className="max-w-md mx-auto">
-          <div className="flex gap-2 items-center">
+        <UserTabs isAdmin={isAdmin} />
+        <div className="max-w-md mx-auto mt-10">
+          <div className="flex gap-4">
             <div>
               <div className="p-2 rounded-lg relative max-w-[120px]">
                 {image && (
@@ -120,17 +134,42 @@ export default function ProfilePage() {
               </div>
             </div>
             <form className="grow" onSubmit={handleProfileInfoUpdate}>
+              <label>
+                Username:
+              </label>
               <input
                 type="text"
                 value={userName}
                 placeholder="Name"
                 onChange={(ev) => setUserName(ev.target.value)}
               />
+              <label>
+                Role:
+              </label>
+              <input type="text" value={"Curator / Artist"} disabled={true} />
+              <label>
+                Email:
+              </label>
               <input
                 type="email"
                 disabled={true}
                 value={session.data.user.email}
+                placeholder={"email"}
               />
+              <label>
+                Media Link:
+              </label>
+              <div className="relative">
+                <input
+                  type="url"
+                  placeholder="Media Link (Youtube/Spotify/etc)"
+                  value={media}
+                  onChange={(ev) => setMedia(ev.target.value)}
+                />
+                <div className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onClick={handleMediaClick}>
+                  <Redirect />
+                </div>
+              </div>
               <button type="submit">Save</button>
             </form>
           </div>
