@@ -10,7 +10,8 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'awsname'
             }
-        ]
+        ],
+        domains: ['images.unsplash.com']
     }
 }
 

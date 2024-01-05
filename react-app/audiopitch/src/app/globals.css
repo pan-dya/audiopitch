@@ -8,6 +8,10 @@ section.hero {
     padding: 1% 5% 2%;
 }
 
+div.flex-container {
+    @apply flex items-center gap-10 mb-10
+}
+
 input[type="email"],
 input[type="password"],
 input[type="text"],

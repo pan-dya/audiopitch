@@ -14,10 +14,10 @@ export default function Header() {
 
       if (session.data?.user) {
         if (session.data.user.name) {
-          const firstName = session.data.user.name.split(' ')[0];
+          const firstName = session.data.user.name.split(" ")[0];
           setUserName(firstName);
         } else {
-          setUserName(session.data?.user.email)
+          setUserName(session.data?.user.email);
         }
       }
     }
@@ -30,23 +30,45 @@ export default function Header() {
         <Link href={"/"} className="text-primary font-semibold text-4xl mr-9">
           AudioPitch
         </Link>
-        <Link href={"/"} className="hover:text-white transition-all">
-          Home
-        </Link>
-        <Link href={""} className="hover:text-white transition-all">
-          Menu
-        </Link>
-        <Link href={""} className="hover:text-white transition-all">
-          About
-        </Link>
-        <Link href={""} className="hover:text-white transition-all">
-          Contact
-        </Link>
+        {status === "authenticated" && (
+          <>
+            <Link href={"/"} className="hover:text-white transition-all">
+              Home
+            </Link>
+            <Link href={""} className="hover:text-white transition-all">
+              Coins
+            </Link>
+            <Link href={""} className="hover:text-white transition-all">
+              About
+            </Link>
+            <Link href={""} className="hover:text-white transition-all">
+              Contact
+            </Link>
+          </>
+        )}
+        {status !== "authenticated" && (
+          <>
+            <Link href={"/"} className="hover:text-white transition-all">
+              Home
+            </Link>
+            <Link href={""} className="hover:text-white transition-all">
+              About
+            </Link>
+            <Link href={""} className="hover:text-white transition-all">
+              Contact
+            </Link>
+          </>
+        )}
       </nav>
       <nav className="flex item-center gap-4 font-semibold">
         {status === "authenticated" && (
           <>
-            <Link href={'/profile'} className="py-2 whitespace-nowrap text-primarylighter hover:text-white transition-all">Hello, {userName}</Link>
+            <Link
+              href={"/profile"}
+              className="py-2 whitespace-nowrap text-primarylighter hover:text-white transition-all"
+            >
+              Hello, {userName}
+            </Link>
             <button
               onClick={() => signOut()}
               className="bg-primary rounded-full text-white px-8 py-2 hover:bg-primarylighter transition-all"
