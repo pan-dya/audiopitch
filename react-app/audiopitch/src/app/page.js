@@ -30,6 +30,7 @@ export default function Home() {
               src="https://images.unsplash.com/photo-1558172307-38630645e7f3?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               width={350}
               height={350}
+              alt="About 1"
             />
             <div className="pl-6">
               <h4 className="text-2xl text-gray-800 font-bold mb-3">
@@ -68,6 +69,7 @@ export default function Home() {
               src="https://images.unsplash.com/photo-1597884650717-b168711a68dc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               width={350}
               height={350}
+              alt="About 2"
             />
           </div>
         </div>

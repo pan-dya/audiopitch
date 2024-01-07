@@ -26,6 +26,7 @@ export default function HomeMenu() {
             className="rounded-lg"
             width={2000}
             height={2000}
+            alt="Feature 1"
           />
         </div>
       </div>
@@ -36,6 +37,7 @@ export default function HomeMenu() {
             className="rounded-lg"
             width={2000}
             height={2000}
+            alt="Feature 2"
           />
         </div>
         <div className="w-full md:w-1/2 pl-10">
@@ -68,6 +70,7 @@ export default function HomeMenu() {
             className="rounded-lg"
             width={1200}
             height={1200}
+            alt="Feature 3"
           />
         </div>
       </div>

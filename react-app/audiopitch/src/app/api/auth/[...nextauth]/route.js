@@ -1,25 +1,30 @@
 import clientPromise from "@/libs/mongoConnect";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 import * as mongoose from "mongoose";
 import { User } from "@/app/models/User";
-import NextAuth from "next-auth";
+import NextAuth, { getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google"
+import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import { UserInfo } from "@/app/models/UserInfos";
 
 export const authOptions = {
   secret: process.env.SECRET,
-  adapter: MongoDBAdapter(clientPromise),
+  adapter: MongoDBAdapter(await clientPromise),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     CredentialsProvider({
       name: "Credentials",
-      id:"credentials",
+      id: "credentials",
       credentials: {
-        username: { label: "Email", type: "email", placeholder: "test@example.com" },
+        username: {
+          label: "Email",
+          type: "email",
+          placeholder: "test@example.com",
+        },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
@@ -27,8 +32,8 @@ export const authOptions = {
         const password = credentials?.password;
 
         mongoose.connect(process.env.MONGO_URL);
-        const user = await User.findOne({ email })
-        const passwordOk = user && bcrypt.compareSync(password, user.password)
+        const user = await User.findOne({ email });
+        const passwordOk = user && bcrypt.compareSync(password, user.password);
 
         if (passwordOk) {
           // console.log(user);
@@ -37,8 +42,18 @@ export const authOptions = {
         // Return null if user data could not be retrieved
         return null;
       },
-    })
+    }),
   ],
+};
+
+export async function isAdmin() {
+  const session = getServerSession(authOptions);
+  const userEmail = session?.user?.email;
+  if (!userEmail) return false;
+  const userInfo = await UserInfo.findOne({ email: userEmail });
+  if (!userInfo) return false;
+  console.log(userInfo);
+  return userInfo.admin;
 }
 
 const handler = NextAuth(authOptions);

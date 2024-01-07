@@ -70,7 +70,7 @@ export default function Header() {
               Hello, {userName}
             </Link>
             <button
-              onClick={() => signOut()}
+              onClick={() => signOut({ callbackUrl: "/login" }) }
               className="bg-primary rounded-full text-white px-8 py-2 hover:bg-primarylighter transition-all"
             >
               Logout

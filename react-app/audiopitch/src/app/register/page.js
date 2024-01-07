@@ -73,6 +73,7 @@ export default function LoginPage() {
           <hr className="flex-grow border-t border-gray-300" />
         </div>
         <button
+          type="button"
           onClick={() => signIn("google", { callbackUrl: "/" })}
           className="flex gap-4 justify-center bg-white"
         >

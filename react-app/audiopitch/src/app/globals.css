@@ -39,13 +39,31 @@ button, .button{
     @apply block w-full text-gray-700 font-semibold;
     @apply border border-gray-300 rounded-xl px-6 py-2;
 }
+
+button:disabled{
+    @apply opacity-50 cursor-not-allowed;
+}
+
 button[type="submit"], button.submit {
-    @apply border-0 bg-primary text-white;
-    @apply hover:bg-primarylighter;
+    @apply border-primary bg-primary text-white;
+    @apply hover:bg-primarylighter hover:border-primarylighter;
 }
 
 button[type="submit"]:disabled, button.submit:disabled {
     @apply cursor-not-allowed bg-primarylighter;
+}
+
+button[type="button"] {
+    @apply hover:opacity-50 text-gray-900;
+}
+
+div.applicationBox {
+    @apply bg-gray-300 mt-6 rounded-xl px-6 py-2 text-center text-gray-700;
+}
+
+div.applies > * {
+    @apply w-full bg-primary text-white rounded-xl px-6 py-2 text-center;
+    @apply hover:bg-primarylighter;
 }
 
 div.tabs > * {

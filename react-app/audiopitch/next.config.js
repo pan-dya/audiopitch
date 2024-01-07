@@ -9,9 +9,14 @@ const nextConfig = {
             {
                 protocol: 'https',
                 hostname: 'awsname'
-            }
+            },
+            {
+                protocol: 'https',
+                hostname: 'images.unsplash.com',
+                pathname: '**',
+            },
         ],
-        domains: ['images.unsplash.com']
+        // domains: ['images.unsplash.com']
     }
 }
 

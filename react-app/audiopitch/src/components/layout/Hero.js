@@ -31,7 +31,9 @@ export default function Hero() {
           src={"/imagehero.png"}
           layout={"fill"}
           objectFit="contain"
-          alt={"image"}
+          // width={400}
+          // height={400}
+          alt={"Hero Image"}
           priority={true}
         />
       </div>
