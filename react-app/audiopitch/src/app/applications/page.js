@@ -7,7 +7,7 @@ import Loading from "@/components/layout/Loading";
 import { useProfile } from "@/components/UseProfile";
 import ApplicationReview from "@/components/layout/ApplicationReview";
 
-export default function SubmissionsPage() {
+export default function ApplicationsPage() {
   const { loading: profileLoading, data: profileData } = useProfile();
   const [submissions, setSubmissions] = useState([]);
   const [openReview, setOpenReview] = useState(false);
