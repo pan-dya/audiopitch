@@ -17,7 +17,7 @@ export default function ProfilePage() {
   const [image, setImage] = useState("");
   const [media, setMedia] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
-  const [role, setRole] = useState("None");
+  const [role, setRole] = useState("");
   const [profileFetched, setProfileFetched] = useState(false);
 
   useEffect(() => {
@@ -80,17 +80,6 @@ export default function ProfilePage() {
     }
   }
 
-  // TODO create handleApplication function
-  // Workflow:
-  // 1. onClick, create database model submission
-  // 2. Update role to pending.
-  // 3. Toast a notification application is in review, then change the buttons to a text.
-  // 4. If approved, change role to curator / artist depending on what user chose.
-  // 5. If declined, give a notification in the buttons section.
-  // 6. After application is approved / declined, delete submission from submission database.
-  // Then, update role from "pending" to "Artist" or "Curator" or "None"
-  // Database models that need to be handled => Submission Model, userInfo model
-  // After all this is done, work on submission page to handle applications.
   async function handleCuratorApplication(ev) {
     ev.preventDefault();
     // setRole("Pending");
@@ -194,7 +183,15 @@ export default function ProfilePage() {
                 placeholder="Name"
                 onChange={(ev) => setUserName(ev.target.value)}
               />
-              <label>Role:</label>
+              {role === "Curator Pending" ||
+              role === "Artist Pending" ||
+              role === "Artist" ||
+              role === "Curator" ||
+              role === "" ? (
+                <label>Role:</label>
+              ) : (
+                <label>Feedback:</label>
+              )}
               <input
                 type="text"
                 placeholder="Role"
@@ -214,6 +211,7 @@ export default function ProfilePage() {
                   type="url"
                   placeholder="Media Link (Youtube/Spotify/etc)"
                   value={media}
+                  disabled={role === "Curator" || role === "Artist"}
                   onChange={(ev) => setMedia(ev.target.value)}
                 />
                 <div
@@ -223,7 +221,7 @@ export default function ProfilePage() {
                   <Redirect />
                 </div>
               </div>
-              <button type="submit">Save</button>
+              <button className="mt-4" type="submit">Save</button>
             </form>
           </div>
           {role === "Curator Pending" || role === "Artist Pending" ? (
@@ -233,7 +231,9 @@ export default function ProfilePage() {
             >
               Application Pending
             </div>
-          ) : (
+          ) : role === "Curator" || role === "Artist" ? (
+            <></>
+          ) : role === "" ? (
             <div className="applies flex gap-4 mt-6">
               <button onClick={handleCuratorApplication}>
                 Apply to be a Curator
@@ -242,7 +242,22 @@ export default function ProfilePage() {
                 Apply to be an Artist
               </button>
             </div>
+          ) : (
+            <>
+              <div className="applicationBox" title="Feedback">
+                {role}
+              </div>
+              <div className="applies flex gap-4 mt-2">
+                <button onClick={handleCuratorApplication}>
+                  Re-Apply to be a Curator
+                </button>
+                <button onClick={handleArtistApplication}>
+                  Re-Apply to be an Artist
+                </button>
+              </div>
+            </>
           )}
+          ;
         </div>
       </section>
     </>

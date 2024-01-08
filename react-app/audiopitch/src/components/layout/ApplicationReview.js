@@ -48,7 +48,7 @@ export default function ApplicationReview({
     onClose();
   }
 
-  async function handleAccept(ev, email, role) {
+  async function handleAccept(ev,_id, email, role) {
     ev.preventDefault();
 
     const deletePromise = deleteApplication(_id);
@@ -111,14 +111,14 @@ export default function ApplicationReview({
         </p>
         <p>
           <span className="font-semibold">Media:</span>
-          <Link href={Application.media}> {Application.media}</Link>
+          <Link className="text-blue-600 hover:text-blue-300" href={Application.media}> {Application.media}</Link>
         </p>
         <div className="flex mt-2 gap-2">
           <button
             disabled={showForm}
             className="bg-green-500 border-0 text-white hover:opacity-50"
             onClick={(ev) =>
-              handleAccept(ev, Application.email, Application.role)
+              handleAccept(ev, Application._id, Application.email, Application.role)
             }
           >
             Accept

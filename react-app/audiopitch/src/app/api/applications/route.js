@@ -24,16 +24,18 @@ export async function DELETE(req) {
   mongoose.connect(process.env.MONGO_URL);
   const url = new URL(req.url);
   const _id = url.searchParams.get("_id");
-  try {
-    const result = await Submissions.deleteOne({ _id });
-    // console.log("Delete result:", result); // Log for debugging
-    return Response.json(true);
-  } catch (error) {
-    // console.error("Error deleting submission:", error);
-    return Response.json({
-      success: false,
-      message: "Error deleting submission",
-    });
+  if (await isAdmin()) {
+    try {
+      const result = await Submissions.deleteOne({ _id });
+      // console.log("Delete result:", result); // Log for debugging
+      return Response.json(true);
+    } catch (error) {
+      // console.error("Error deleting submission:", error);
+      return Response.json({
+        success: false,
+        message: "Error deleting submission",
+      });
+    }
   }
 }
 
@@ -43,18 +45,20 @@ export async function PATCH(req) {
   const email = url.searchParams.get("email");
   const { feedback } = await req.json();
   console.log(email, feedback);
-  try {
-    const result = await UserInfo.findOneAndUpdate(
-      { email },
-      { $set: { role: feedback } }
-    );
-    // console.log("Result: ", result);
-    return Response.json(true);
-  } catch (error) {
-    return Response.json({
-      success: false,
-      message: "Error updating userInfo",
-    });
+  if (await isAdmin()) {
+    try {
+      const result = await UserInfo.findOneAndUpdate(
+        { email },
+        { $set: { role: feedback } }
+      );
+      // console.log("Result: ", result);
+      return Response.json(true);
+    } catch (error) {
+      return Response.json({
+        success: false,
+        message: "Error updating userInfo",
+      });
+    }
   }
 }
 
@@ -64,17 +68,19 @@ export async function PUT(req) {
   const email = url.searchParams.get("email");
   const { role } = await req.json();
   console.log(email, role);
-  try {
-    const result = await UserInfo.findOneAndUpdate(
-      { email },
-      { $set: { role: role } }
-    );
-    console.log("Result", result);
-    return Response.json(true);
-  } catch (error) {
-    return Response.json({
-      success: false,
-      message: "Error updating userInfo",
-    });
+  if (await isAdmin()) {
+    try {
+      const result = await UserInfo.findOneAndUpdate(
+        { email },
+        { $set: { role: role } }
+      );
+      console.log("Result", result);
+      return Response.json(true);
+    } catch (error) {
+      return Response.json({
+        success: false,
+        message: "Error updating userInfo",
+      });
+    }
   }
 }
