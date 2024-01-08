@@ -20,7 +20,12 @@ module.exports = withUt ({
         shadedark: "#273201",
         textcolor: "#bce43c",
         textcolorl: "#5e721e",
+        softcream: "#F9F9E0"
       },
+      boxShadow: {
+        '3xl-1': '-10px 15px 60px 15px rgba(0, 0, 0, 0.5)',
+        '3xl-2': '10px 15px 60px 15px rgba(0, 0, 0, 0.6)'
+      }
     },
   },
   plugins: [],

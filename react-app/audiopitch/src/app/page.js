@@ -28,6 +28,7 @@ export default function Home() {
           <div className="flex-container">
             <Image
               src="https://images.unsplash.com/photo-1558172307-38630645e7f3?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              className="rounded-lg shadow-3xl-1"
               width={350}
               height={350}
               alt="About 1"
@@ -67,6 +68,7 @@ export default function Home() {
             </div>
             <Image
               src="https://images.unsplash.com/photo-1597884650717-b168711a68dc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              className="rounded-lg shadow-3xl-2"
               width={350}
               height={350}
               alt="About 2"

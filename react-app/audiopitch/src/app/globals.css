@@ -11,7 +11,7 @@ section.hero {
 div.flex-container {
     @apply flex items-center gap-10 mb-10
 }
-
+textarea,
 input[type="email"],
 input[type="password"],
 input[type="text"],
@@ -20,6 +20,7 @@ input[type="url"] {
     @apply block border p-2 border-gray-300 bg-gray-100; 
 }
 
+textarea:disabled,
 input[type="email"]:disabled,
 input[type="password"]:disabled,
 input[type="text"]:disabled,
