@@ -28,8 +28,8 @@ export default function ProfilePage() {
 
       fetch("/api/profile/roles").then((response) => {
         response.json().then((data) => {
-          // if (data.role) setRole(data.role);
-          // else setRole ("")
+          if (data.role) setRole(data.role);
+          else setRole ("")
           setRoleFetched(true);
         });
       });
