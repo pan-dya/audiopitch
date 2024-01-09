@@ -14,11 +14,6 @@ export default function ApplicationsPage() {
   const [selectedSubmission, setSelectedSubmission] = useState(null);
 
   useEffect(() => {
-    // const submissionsData = [
-    //   { id: 1, type: "Curator", status: "Pending", name: "John Doe" },
-    //   { id: 2, type: "Artist", status: "Pending", name: "Jane Doe" },
-    // ];
-    // setSubmissions(submissionsData);
     const fetchSubmissions = async () => {
       try {
         const response = await fetch("/api/applications");

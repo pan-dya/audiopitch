@@ -19,14 +19,24 @@ export default function ProfilePage() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [role, setRole] = useState("");
   const [profileFetched, setProfileFetched] = useState(false);
+  const [roleFetched, setRoleFetched] = useState(false);
 
   useEffect(() => {
     if (status === "authenticated") {
       setUserName(session.data.user.name);
       setImage(session.data.user.image);
+
+      fetch("/api/profile/roles").then((response) => {
+        response.json().then((data) => {
+          // if (data.role) setRole(data.role);
+          // else setRole ("")
+          setRoleFetched(true);
+        });
+      });
+
       fetch("/api/profile").then((response) => {
         response.json().then((data) => {
-          setRole(data.role);
+          // setRole(data.role);
           setMedia(data.media);
           setIsAdmin(data.admin);
           setProfileFetched(true);
@@ -233,7 +243,7 @@ export default function ProfilePage() {
             </div>
           ) : role === "Curator" || role === "Artist" ? (
             <></>
-          ) : role === "" ? (
+          ) : role === "" || role === null ? (
             <div className="applies flex gap-4 mt-6">
               <button onClick={handleCuratorApplication}>
                 Apply to be a Curator
