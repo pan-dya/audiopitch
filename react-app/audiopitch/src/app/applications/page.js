@@ -52,6 +52,9 @@ export default function ApplicationsPage() {
       <Header />
       <section className="mt-8 max-w-lg mx-auto">
         <UserTabs isAdmin={true} />
+        <h1 className="mt-8 text-3xl text-primary italic font-semibold text-center">
+          Curator/Artist Applications
+        </h1>
         <div>
           <h2 className="mt-8 text-sm text-gray-500">Pending Applications</h2>
           {submissions.length > 0 ? (
@@ -78,7 +81,11 @@ export default function ApplicationsPage() {
           ) : (
             <p>No pending applications</p>
           )}
-          <ApplicationReview isOpen={openReview} onClose={closeReview} Application={selectedSubmission} />
+          <ApplicationReview
+            isOpen={openReview}
+            onClose={closeReview}
+            Application={selectedSubmission}
+          />
         </div>
       </section>
     </>

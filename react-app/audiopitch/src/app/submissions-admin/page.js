@@ -5,6 +5,7 @@ import Loading from "@/components/layout/Loading";
 import ErrorLayout from "@/components/layout/Error";
 import Header from "@/components/layout/Header";
 import { useEffect, useState } from "react";
+import UserTabs from "@/components/layout/UserTabs";
 
 export default function submissionsPage() {
   const { loading: profileLoading, data: profileData } = useProfile();
@@ -45,11 +46,12 @@ export default function submissionsPage() {
       <>
         <Header />
         <section className="mt-8 max-w-lg mx-auto">
-          <h1 className="mt-8 text-3xl text-primary italic font-semibold">
+          <UserTabs isAdmin={true} />
+          <h1 className="mt-8 text-3xl text-primary italic font-semibold text-center">
             Track Submissions
           </h1>
           <div>
-            <h2 className="mt-8 text-sm text-gray-500">Submitted Tracks)</h2>
+            <h2 className="mt-8 text-sm text-gray-500">Submitted Tracks</h2>
             {submissions.length > 0 ? (
               submissions.map((submission) => (
                 <div
