@@ -1,10 +1,12 @@
 "use client";
+import Link from "next/link";
 import SubmissionReview from "@/components/layout/SubmissionReview";
 import { useProfile } from "@/components/UseProfile";
 import Loading from "@/components/layout/Loading";
 import ErrorLayout from "@/components/layout/Error";
 import Header from "@/components/layout/Header";
 import { useEffect, useState } from "react";
+import Right from "@/components/icons/Right";
 
 export default function SongSubmissionPage() {
   const { loading: profileLoading, data: profileData } = useProfile();
@@ -14,24 +16,18 @@ export default function SongSubmissionPage() {
   const [openReview, setOpenReview] = useState(false);
 
   useEffect(() => {
-    function fetchSubmissions() {
-      fetch("/api/song/submissions").then((response) => {
-        response.json().then((data) => {
-          const filteredSubmissions = data.filter(
-            (submission) => submission.curator === profileData.email
-          );
-          const filteredByStatus = filteredSubmissions.filter(
-            (submission) => submission.status === "To be Published"
-          );
-          setSubmissions(filteredSubmissions);
-          setFilteredSubmissions(filteredByStatus);
-        });
-      });
-    }
+    let url = "/api/song/submissions";
 
-    if (profileData.admin || profileData.role === "Curator") {
-      fetchSubmissions();
-    }
+    fetch(url).then((response) => {
+      response.json().then((data) => {
+        setSubmissions(
+          data.filter((submission) => submission.status !== "To be Published")
+        );
+        setFilteredSubmissions(
+          data.filter((submission) => submission.status === "To be Published")
+        );
+      });
+    });
   }, [profileData]);
 
   const handleEditReview = (submission) => {
@@ -105,7 +101,7 @@ export default function SongSubmissionPage() {
                         handleEditReview(submission);
                       }}
                     >
-                      Review
+                      Publish
                     </button>
                   </div>
                 </div>
@@ -119,6 +115,12 @@ export default function SongSubmissionPage() {
               Submission={selectedSubmission}
             />
           </div>
+          <Link
+            className="bg-primary flex justify-center items-center uppercase gap-3 w-auto text-white px-4 py-2 my-8 rounded-full hover:opacity-50 transition-all"
+            href={"/submissions"}
+          >
+            Submissons History
+          </Link>
         </section>
       </>
     );
