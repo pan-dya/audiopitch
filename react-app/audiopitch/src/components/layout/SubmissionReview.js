@@ -1,7 +1,8 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import SpotifyPlayer from "@/components/layout/SpotifyPlayer";
 
 export default function SubmissionReview({
   isOpen,
@@ -11,6 +12,8 @@ export default function SubmissionReview({
   const [showForm, setShowForm] = useState(false);
   const [feedback, setFeedback] = useState("");
   if (!isOpen) return null;
+  const match = Submission.url.match(/\/track\/([a-zA-Z0-9]+)/);
+  const uri = match ? match[1] : "";
 
   async function handleFormSubmit(ev, id) {
     ev.preventDefault();
@@ -42,7 +45,7 @@ export default function SubmissionReview({
       const response = await fetch("/api/song/review?id=" + id, {
         method: "PATCH",
         headers: { "Content-Type": "Submission/json" },
-        body: JSON.stringify({ status:"To be Published" }),
+        body: JSON.stringify({ status: "To be Published" }),
       });
       if (response.ok) resolve(true);
       else reject();
@@ -108,13 +111,12 @@ export default function SubmissionReview({
             {Submission.url}
           </Link>
         </p>
+        <SpotifyPlayer uri={uri} />
         <div className="flex mt-2 gap-2">
           <button
             disabled={showForm}
             className="bg-green-500 border-0 text-white hover:opacity-50"
-            onClick={(ev) =>
-              handleAccept(ev, Submission.id)
-            }
+            onClick={(ev) => handleAccept(ev, Submission.id)}
           >
             Accept
           </button>
