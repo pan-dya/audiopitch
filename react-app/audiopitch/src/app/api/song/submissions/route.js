@@ -26,10 +26,13 @@ export async function GET() {
   const result = await Promise.all(
     submissions.map(async (res) => {
       const artistUser = await User.findOne({ email: res.artist });
+      const curatorUser = await UserInfo.findOne({ email: res.curator });
+
       return {
         id: res._id,
         email: res.artist,
         name: artistUser?.name || "Unknown",
+        media: curatorUser?.media || "No Media Yet",
         title: res.title,
         curator: res.curator,
         url: res.url,

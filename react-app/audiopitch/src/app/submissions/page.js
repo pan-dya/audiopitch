@@ -51,9 +51,9 @@ export default function submissionsPage() {
             submissions.map((submission) => (
               <div
                 key={submission._id}
-                className={`rounded-xl p-2 px-4 flex gap-1 mb-1 items-center border-2 ${
+                className={`rounded-xl p-2 px-4 flex gap-2 mb-1 items-center border-2 ${
                   submission.status === "Declined"
-                    ? "bg-red-100 border-red-400"
+                    ? "bg-pink-100 border-pink-400"
                     : submission.status === "Accepted"
                     ? "bg-green-100 border-green-400"
                     : submission.status === "To be Published"
@@ -68,7 +68,7 @@ export default function submissionsPage() {
                   <button
                     className={`border-0 ${
                       submission.status === "Declined"
-                        ? "bg-red-300"
+                        ? "bg-pink-300"
                         : submission.status === "Accepted"
                         ? "bg-green-300"
                         : submission.status === "To be Published"

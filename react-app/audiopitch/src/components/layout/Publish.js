@@ -1,20 +1,18 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function SubmissionReview({
+export default function PublishTab({
   isOpen,
   onClose = () => {},
   Submission = {},
 }) {
-  const [showForm, setShowForm] = useState(false);
-  const [feedback, setFeedback] = useState("");
   if (!isOpen) return null;
 
   const refreshPage = () => {
-    window.location.reload()
-  }
+    window.location.reload();
+  };
 
   async function handleFormSubmit(ev, id) {
     ev.preventDefault();
@@ -23,7 +21,7 @@ export default function SubmissionReview({
       const response = await fetch("/api/song/review?id=" + id, {
         method: "PATCH",
         headers: { "Content-Type": "Submission/json" },
-        body: JSON.stringify({ feedback, status: "Declined" }),
+        body: JSON.stringify({ status: "Accepted" }),
       });
       if (response.ok) resolve(true);
       else reject();
@@ -34,32 +32,7 @@ export default function SubmissionReview({
       success: "Feedback Sent",
       error: "Failed",
     });
-    refreshPage()
-    setShowForm(false);
-    setFeedback("");
-    onClose();
-  }
-
-  async function handleAccept(ev, id) {
-    ev.preventDefault();
-
-    const updateRolePromise = new Promise(async (resolve, reject) => {
-      const response = await fetch("/api/song/review?id=" + id, {
-        method: "PATCH",
-        headers: { "Content-Type": "Submission/json" },
-        body: JSON.stringify({ status:"To be Published" }),
-      });
-      if (response.ok) resolve(true);
-      else reject();
-    });
-
-    await toast.promise(updateRolePromise, {
-      loading: "Accepting Submission...",
-      success: "Submission Accepted",
-      error: "Failed to Accept Submission",
-    });
-    refreshPage()
-    setShowForm(false);
+    refreshPage();
     onClose();
   }
 
@@ -70,7 +43,6 @@ export default function SubmissionReview({
           <button
             className="text-gray-500 hover:text-gray-700 focus:outline-none"
             onClick={() => {
-              setShowForm(false);
               onClose();
             }}
           >
@@ -90,7 +62,7 @@ export default function SubmissionReview({
             </svg>
           </button>
         </div>
-        <h2 className="text-xl font-semibold mb-4">Review Submission</h2>
+        <h2 className="text-xl font-semibold mb-4">Already Published?</h2>
         <p>
           <span className="font-semibold">Title:</span> {Submission.title}
         </p>
@@ -114,39 +86,20 @@ export default function SubmissionReview({
             {Submission.url}
           </Link>
         </p>
-        <div className="flex mt-2 gap-2">
-          <button
-            disabled={showForm}
-            className="bg-green-500 border-0 text-white hover:opacity-50"
-            onClick={(ev) =>
-              handleAccept(ev, Submission.id)
-            }
-          >
-            Accept
-          </button>
-          <button
-            onClick={() => {
-              setShowForm(true);
-            }}
-            disabled={showForm}
-            className="bg-red-500 border-0 text-white hover:opacity-50"
-          >
-            Decline
-          </button>
-        </div>
-
-        {showForm && (
-          <form onSubmit={(ev) => handleFormSubmit(ev, Submission.id)}>
-            <label>Feedback:</label>
-            <input
-              type="text"
-              placeholder="Feedback"
-              onChange={(ev) => setFeedback(ev.target.value)}
-              required
-            />
-            <button type="submit">Submit</button>
-          </form>
-        )}
+        <form
+          className="mt-4"
+          onSubmit={(ev) => handleFormSubmit(ev, Submission.id)}
+        >
+          <label>Published to:</label>
+          <input
+            type="url"
+            placeholder="Playlist Link, Other Curation Media Link"
+            value={Submission.media}
+            // onChange={(ev) => setMedia(ev.target.value)}
+            required
+          />
+          <button type="submit">Done</button>
+        </form>
       </div>
     </div>
   );
