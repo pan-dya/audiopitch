@@ -1,13 +1,18 @@
 "use client"
+import { useSelector } from "react-redux"
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import MusicPlayer from "@/components/MusicPlayer";
 
 export default function SubmissionReview({
   isOpen,
   onClose = () => {},
   Submission = {},
 }) {
+
+  const { activeSong } = useSelector((state) => state.player);
+
   const [showForm, setShowForm] = useState(false);
   const [feedback, setFeedback] = useState("");
   if (!isOpen) return null;
@@ -61,6 +66,8 @@ export default function SubmissionReview({
     refreshPage()
     setShowForm(false);
     onClose();
+
+    
   }
 
   return (
@@ -148,6 +155,11 @@ export default function SubmissionReview({
           </form>
         )}
       </div>
+      {activeSong?.track && (
+        <div className="absolute h-28 bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-t-3xl z-10">
+          <MusicPlayer />
+        </div>
+      )}
     </div>
   );
 }
