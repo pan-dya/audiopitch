@@ -14,15 +14,13 @@ export default function submissionsPage() {
   const [selectedSubmission, setSelectedSubmission] = useState(null);
 
   useEffect(() => {
-    let url = '/api/song/submissions';
+    let url = "/api/song/submissions";
 
     fetch(url).then((response) => {
       response.json().then((data) => {
         setSubmissions(data);
       });
     });
-
-
   }, [profileData]);
 
   const handleEditReview = (submission) => {
@@ -56,9 +54,9 @@ export default function submissionsPage() {
                 className={`rounded-xl p-2 px-4 flex gap-1 mb-1 items-center border-2 ${
                   submission.status === "Declined"
                     ? "bg-red-100 border-red-400"
-                    : submission.status === "Published"
-                    ? "bg-green-100 border-greed-400"
                     : submission.status === "Accepted"
+                    ? "bg-green-100 border-green-400"
+                    : submission.status === "To be Published"
                     ? "bg-cyan-100 border-cyan-400"
                     : "bg-yellow-100 border-yellow-400"
                 }`}
@@ -73,6 +71,8 @@ export default function submissionsPage() {
                         ? "bg-red-300"
                         : submission.status === "Accepted"
                         ? "bg-green-300"
+                        : submission.status === "To be Published"
+                        ? "bg-cyan-300"
                         : "bg-yellow-300"
                     }`}
                     type="button"

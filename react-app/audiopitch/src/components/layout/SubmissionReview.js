@@ -23,22 +23,20 @@ export default function SubmissionReview({
     });
   }
 
-  async function handleFormSubmit(ev, _id, email) {
+  async function handleFormSubmit(ev, id) {
     ev.preventDefault();
 
-    const deletePromise = deleteSubmission(_id);
-
     const updateFeedbackPromise = new Promise(async (resolve, reject) => {
-      const response = await fetch("/api/Submissions?email=" + email, {
+      const response = await fetch("/api/song/review?id=" + id, {
         method: "PATCH",
         headers: { "Content-Type": "Submission/json" },
-        body: JSON.stringify({ feedback }),
+        body: JSON.stringify({ feedback, status: "Declined" }),
       });
       if (response.ok) resolve(true);
       else reject();
     });
 
-    await toast.promise(deletePromise, updateFeedbackPromise, {
+    await toast.promise(updateFeedbackPromise, {
       loading: "Sending Feedback...",
       success: "Feedback Sent",
       error: "Failed",
@@ -48,28 +46,23 @@ export default function SubmissionReview({
     onClose();
   }
 
-  async function handleAccept(ev, _id, email, role) {
+  async function handleAccept(ev, id) {
     ev.preventDefault();
 
-    const deletePromise = deleteSubmission(_id);
-
     const updateRolePromise = new Promise(async (resolve, reject) => {
-      const response = await fetch("/api/Submissions?email=" + email, {
-        method: "PUT",
+      const response = await fetch("/api/song/review?id=" + id, {
+        method: "PATCH",
         headers: { "Content-Type": "Submission/json" },
-        body: JSON.stringify({
-          email,
-          role: role.replace(" Pending", ""),
-        }),
+        body: JSON.stringify({ status:"To be Published" }),
       });
       if (response.ok) resolve(true);
       else reject();
     });
 
-    await toast.promise(deletePromise, updateRolePromise, {
-      loading: "Updating Role...",
-      success: "Role Updated",
-      error: "Failed to Update Role",
+    await toast.promise(updateRolePromise, {
+      loading: "Accepting Submission...",
+      success: "Submission Accepted",
+      error: "Failed to Accept Submission",
     });
     setShowForm(false);
     onClose();
@@ -113,7 +106,8 @@ export default function SubmissionReview({
           <span className="font-semibold">Release Date:</span> {Submission.date}
         </p>
         <p>
-          <span className="font-semibold">Description:</span> {Submission.description}
+          <span className="font-semibold">Description:</span>{" "}
+          {Submission.description}
         </p>
         <p>
           <span className="font-semibold">Track Url:</span>
@@ -130,12 +124,7 @@ export default function SubmissionReview({
             disabled={showForm}
             className="bg-green-500 border-0 text-white hover:opacity-50"
             onClick={(ev) =>
-              handleAccept(
-                ev,
-                Submission._id,
-                Submission.email,
-                Submission.role
-              )
+              handleAccept(ev, Submission.id)
             }
           >
             Accept
@@ -152,21 +141,13 @@ export default function SubmissionReview({
         </div>
 
         {showForm && (
-          <form
-            onSubmit={(ev) =>
-              handleFormSubmit(
-                ev,
-                Submission._id,
-                Submission.email,
-                Submission.role
-              )
-            }
-          >
+          <form onSubmit={(ev) => handleFormSubmit(ev, Submission.id)}>
             <label>Feedback:</label>
             <input
               type="text"
               placeholder="Feedback"
               onChange={(ev) => setFeedback(ev.target.value)}
+              required
             />
             <button type="submit">Submit</button>
           </form>

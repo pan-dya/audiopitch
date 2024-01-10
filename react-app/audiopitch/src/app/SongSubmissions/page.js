@@ -21,14 +21,14 @@ export default function SongSubmissionPage() {
     fetch(url).then((response) => {
       response.json().then((data) => {
         setSubmissions(
-          data.filter((submission) => submission.status !== "To be Published")
+          data.filter((submission) => submission.status === "Waiting for Review")
         );
         setFilteredSubmissions(
           data.filter((submission) => submission.status === "To be Published")
         );
       });
     });
-  }, [profileData]);
+  }, [submissions, profileData]);
 
   const handleEditReview = (submission) => {
     setSelectedSubmission(submission);
