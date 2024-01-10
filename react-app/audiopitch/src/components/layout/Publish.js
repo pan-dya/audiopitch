@@ -10,10 +10,6 @@ export default function PublishTab({
 }) {
   if (!isOpen) return null;
 
-  const refreshPage = () => {
-    window.location.reload();
-  };
-
   async function handleFormSubmit(ev, id) {
     ev.preventDefault();
 
@@ -32,7 +28,6 @@ export default function PublishTab({
       success: "Feedback Sent",
       error: "Failed",
     });
-    refreshPage();
     onClose();
   }
 

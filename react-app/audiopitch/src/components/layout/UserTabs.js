@@ -17,7 +17,7 @@ export default function UserTabs({ isAdmin }) {
           >
             Applications
           </Link>
-          <Link className={path === "/users" ? "active" : ""} href={"/users"}>
+          <Link className={path.startsWith("/users") ? "active" : ""} href={"/users"}>
             Users
           </Link>
         </>

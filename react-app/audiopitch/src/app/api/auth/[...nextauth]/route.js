@@ -52,7 +52,7 @@ export async function isAdmin() {
   if (!userEmail) return false;
   const userInfo = await UserInfo.findOne({ email: userEmail });
   if (!userInfo) return false;
-  console.log(userInfo);
+  // console.log(userInfo);
   return userInfo.admin;
 }
 

@@ -12,10 +12,6 @@ export default function SubmissionReview({
   const [feedback, setFeedback] = useState("");
   if (!isOpen) return null;
 
-  const refreshPage = () => {
-    window.location.reload()
-  }
-
   async function handleFormSubmit(ev, id) {
     ev.preventDefault();
 
@@ -34,7 +30,6 @@ export default function SubmissionReview({
       success: "Feedback Sent",
       error: "Failed",
     });
-    refreshPage()
     setShowForm(false);
     setFeedback("");
     onClose();
@@ -58,7 +53,6 @@ export default function SubmissionReview({
       success: "Submission Accepted",
       error: "Failed to Accept Submission",
     });
-    refreshPage()
     setShowForm(false);
     onClose();
   }

@@ -31,7 +31,7 @@ export default function SongSubmissionPage() {
         );
       });
     });
-  }, [profileData]);
+  }, [profileData, openReview, openPublish]);
 
   const handleEditReview = (submission) => {
     setSelectedSubmission(submission);
