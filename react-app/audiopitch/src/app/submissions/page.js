@@ -43,7 +43,7 @@ export default function submissionsPage() {
     <>
       <Header />
       <section className="mt-8 max-w-lg mx-auto">
-        <UserTabs isAdmin={false} />
+        <UserTabs isAdmin={profileData.admin} />
         <h1 className="mt-8 text-3xl text-primary italic font-semibold text-center">
           Track Submissions
         </h1>

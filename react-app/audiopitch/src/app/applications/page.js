@@ -64,7 +64,7 @@ export default function ApplicationsPage() {
                 className="bg-gray-100 rounded-xl p-2 px-4 flex gap-1 mb-1 items-center"
               >
                 <div className="grow">
-                  {submission.email}: {submission.media} ({submission.role})
+                  {submission.email}: {submission.media || "No media inputted"} ({submission.role})
                 </div>
                 <div className="flex gap-1">
                   <button
