@@ -10,16 +10,12 @@ module.exports = withUt ({
   theme: {
     extend: {
       colors: {
-        primary: "#431bc3",
-        primarylighter: "#a18de1",
-        bgprimary: "#c4fc04",
-        bgsecondary: "#bcdb5d",
-        bgdarker: "#b9c493",
+        primary: "#5035b5",
+        primarylighter: "#9330b5",
+        bgprimary: "#abcc40",
+        bgsecondary: "#a5b17d",
         shade: "#edfeb4",
         shade2: "#f9ffe6",
-        shadedark: "#273201",
-        textcolor: "#bce43c",
-        textcolorl: "#5e721e",
         softcream: "#F9F9E0"
       },
       boxShadow: {

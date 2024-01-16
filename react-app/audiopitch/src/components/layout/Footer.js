@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-shadedark text-white py-8">
+    <footer className="bg-bgsecondary text-white py-8">
       <div className="container mx-auto flex items-center justify-between h-full">
         <p className="text-sm ml-4">&copy; 2024 Audiopitch. All Rights Reserved.</p>
         <div className="mr-4">

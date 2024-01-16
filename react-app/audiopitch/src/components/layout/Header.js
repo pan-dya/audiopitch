@@ -27,7 +27,7 @@ export default function Header() {
   return (
     <header className="flex items-center justify-between bg-bgprimary p-7 px-12">
       <nav className="flex items-center gap-8 text-primarylighter font-semibold">
-        <Link href={"/"} className="text-primary font-semibold text-4xl mr-9">
+        <Link href={"/"} className="text-primary font-semibold text-4xl mr-9 drop-shadow-xl">
           AudioPitch
         </Link>
         {status === "authenticated" && (
@@ -71,7 +71,7 @@ export default function Header() {
             </Link>
             <button
               onClick={() => signOut({ callbackUrl: "/login" }) }
-              className="bg-primary rounded-full text-white px-8 py-2 hover:bg-primarylighter transition-all"
+              className="bg-primary rounded-full border-0 text-white px-8 py-2 hover:bg-primarylighter transition-all"
             >
               Logout
             </button>
@@ -81,13 +81,13 @@ export default function Header() {
           <>
             <Link
               href={"/login"}
-              className="text-primary py-2 hover:text-primarylighter transition-all"
+              className="text-primary border-0 py-2 hover:opacity-50 transition-all"
             >
               Login
             </Link>
             <Link
               href={"/register"}
-              className="bg-primary rounded-full text-white px-8 py-2 hover:bg-primarylighter transition-all"
+              className="bg-primary rounded-full border-0 text-white px-8 py-2 hover:opacity-50 transition-all"
             >
               Register
             </Link>

@@ -34,7 +34,7 @@ export default function Hero() {
         </p>
         <div className="flex gap-4 text-sm">
           <Link
-            className="bg-primary flex justify-center items-center uppercase gap-3 w-auto text-textcolor px-4 py-2 rounded-full hover:opacity-50 transition-all"
+            className="bg-primary flex justify-center items-center uppercase gap-3 w-auto text-white px-4 py-2 rounded-full hover:opacity-50 transition-all"
             href={
               role === "Artist"
                 ? "/SubmissionForm"
